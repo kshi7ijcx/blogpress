@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full px-10 pt-4 sm:textsm">
-      <div className="bg-[#3E3232] flex justify-between items-center mx-auto px-10 py-3 max-sm:px-8 rounded-full shadow-xl">
+      <div className="bg-[#3E3232] flex justify-between items-center px-10 py-3 max-sm:px-8 rounded-full shadow-xl">
         <div className="flex gap-x-3">
           <Link href="/">
             <FaBrain className="w-6 h-6" />
