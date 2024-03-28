@@ -7,7 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   return (
     <form className="w-full flex justify-center">
-      <div className="flex-col max-w-md p-4 space-y-2 items-center">
+      <div className="flex flex-col max-w-xl p-4 space-y-2 items-center">
         <h1 className="font-bold text-xl">Login</h1>
         <input
           placeholder="email"
