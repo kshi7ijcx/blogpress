@@ -11,3 +11,9 @@ body {
   color: var(--text-color);
   background: var(--default-bg-color);
 }
+
+@layer components{
+  .btn{
+    @apply bg-[#7E6363] hover:bg-[#A87C7C] px-3 py-1 rounded-full shadow-2xl hover:-translate-y-0.5 tracking-wide font-medium max-w-fit
+  }
+}

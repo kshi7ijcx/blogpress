@@ -27,6 +27,7 @@ export const AuthContextProvider = ({children}) => {
     async function init(){
         try{
             const loggedIn = await account.get();
+            console.log(loggedIn);
             setUser(loggedIn);
         }catch(e){
             setUser(null);
