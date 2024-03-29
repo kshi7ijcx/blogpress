@@ -9,7 +9,8 @@ export const AuthContextProvider = ({children}) => {
     const [user,setUser] = useState(null);
 
     async function login(email,password){  
-        const loggedIn = await account.createEmailSession(email,password);
+        await account.createEmailSession(email,password);
+        const loggedIn = await account.get();
         console.log(loggedIn);
         setUser(loggedIn);
     }
@@ -19,8 +20,8 @@ export const AuthContextProvider = ({children}) => {
         setUser(null);
     }
 
-    async function register(email,password){
-        await account.create(ID.unique(),email,password);
+    async function register(email,password,name){
+        await account.create(ID.unique(),email,password,name);
         await login(email,password);
     }
 

@@ -1,21 +1,29 @@
 "use client";
+import { useState } from "react";
 import useAuthContext from "../lib/hooks/useAuthContext";
 import { useRouter } from "next/navigation";
 
 const LogoutButton = () => {
   const user = useAuthContext();
   const router = useRouter();
+  const [loading,setLoading] = useState(false);
 
-  const logoutUser = () => {
-    user.logout();
+  const logoutUser = async () => {
+    await user.logout();
     router.push("/login");
-  }
+  };
 
   return (
-    <div className="flex items-center space-x-3">
-      <p className="font-semibold text-lg">{user.current && user.current.email.split('@')[0]}</p>
-      <button className="btn" onClick={logoutUser}>Logout</button>
-    </div>
+    <>
+      {user.current && (
+        <div className="flex items-center space-x-3 max-sm:space-x-1">
+          <p className="font-semibold text-lg max-sm:text-sm">{user.current.name}</p>
+          <button className="btn max-sm:text-sm" onClick={logoutUser}>
+            Logout
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 export default LogoutButton;
