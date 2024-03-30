@@ -27,7 +27,7 @@ const Login = () => {
           onChange={(e) => {
             setName(e.target.value);
           }}
-          className="text-white bg-transparent border border-gray-600 rounded-lg px-2 py-1"
+          className="input"
         />
         <input
           placeholder="email"
@@ -36,7 +36,7 @@ const Login = () => {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
-          className="text-white bg-transparent border border-gray-600 rounded-lg px-2 py-1"
+          className="input"
         />
         <input
           placeholder="password"
