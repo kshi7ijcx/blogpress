@@ -7,13 +7,16 @@ import Link from "next/link";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const user = useAuthContext();
   const router = useRouter();
 
   const loginUser = async (e) => {
     e.preventDefault();
+    setLoading(true);
     await user.login(email, password);
     router.push("/");
+    setLoading(false);
   };
 
   return (
@@ -40,10 +43,13 @@ const Login = () => {
         />
         <div className="flex flex-col space-y-3 items-center">
           <button className="btn" onClick={loginUser}>
-            Submit
+            {loading ? "..." : "Submit"}
           </button>
           <p>
-            Need an Account? <Link href="/signup" className="hover:underline">SignUp</Link>
+            Need an Account?{" "}
+            <Link href="/signup" className="hover:underline">
+              SignUp
+            </Link>
           </p>
         </div>
       </div>
