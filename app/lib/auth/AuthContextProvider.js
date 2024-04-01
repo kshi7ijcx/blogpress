@@ -11,12 +11,13 @@ export const AuthContextProvider = ({ children }) => {
   async function login(email, password) {
     await account.createEmailSession(email, password);
     const loggedIn = await account.get();
-    console.log(loggedIn);
-    setUser(loggedIn);
+    localStorage.setItem("user", JSON.stringify(loggedIn));
   }
 
   async function logout() {
     await account.deleteSession("current");
+    localStorage.removeItem('user
+    ');
     setUser(null);
   }
 
@@ -27,20 +28,21 @@ export const AuthContextProvider = ({ children }) => {
 
   async function init() {
     try {
-      const loggedIn = await account.get();
-      console.log(loggedIn);
+      const loggedIn = JSON.parse(localStorage.getItem("user"));
       setUser(loggedIn);
     } catch (e) {
       setUser(null);
     }
   }
 
-  useEffect(() => {
+  useEffect(()=>{
     init();
-  }, []);
+  },[])
 
   return (
-    <AuthContext.Provider value={{ current: user, login, logout, register }}>
+    <AuthContext.Provider
+      value={{ current: user, login, logout, register, init }}
+    >
       {children}
     </AuthContext.Provider>
   );

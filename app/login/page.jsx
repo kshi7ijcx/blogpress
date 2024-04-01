@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuthContext from "../lib/hooks/useAuthContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -10,7 +10,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const user = useAuthContext();
   const router = useRouter();
-
+  
   const loginUser = async (e) => {
     e.preventDefault();
     setLoading(true);
