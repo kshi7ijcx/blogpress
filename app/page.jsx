@@ -10,14 +10,14 @@ const text =
 const Home = () => {
   const posts = useDBContext();
   const router = useRouter();
-  const [isAuth, setIsAuth] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const checkAuth = () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        setIsAuth(user);
+      const val = JSON.parse(localStorage.getItem("user"));
+      if (val) {
+        setUser(val);
       } else {
         router.push("/login");
       }
@@ -25,7 +25,7 @@ const Home = () => {
     checkAuth();
   }, []);
 
-  if (isAuth) {
+  if (user) {
     return (
       <main className="w-full px-20">
         <div className="flex-col max-w-5xl mx-auto">

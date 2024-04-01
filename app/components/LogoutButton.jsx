@@ -22,6 +22,7 @@ const LogoutButton = () => {
   const logoutUser = async () => {
     await logout();
     router.push("/login");
+    setUser(null);
   };
 
   return (

@@ -16,8 +16,7 @@ export const AuthContextProvider = ({ children }) => {
 
   async function logout() {
     await account.deleteSession("current");
-    localStorage.removeItem('user
-    ');
+    localStorage.removeItem('user');
     setUser(null);
   }
 
