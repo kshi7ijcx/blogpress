@@ -8,15 +8,22 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error,setError] = useState(false);
   const user = useAuthContext();
   const router = useRouter();
   
   const loginUser = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await user.login(email, password);
-    router.push("/");
-    setLoading(false);
+    try{
+      setError(false);
+      await user.login(email, password);
+      router.push("/");
+      setLoading(false);
+    }catch(e){
+      setLoading(false);
+      setError(true);
+    }
   };
 
   return (
@@ -51,6 +58,7 @@ const Login = () => {
               SignUp
             </Link>
           </p>
+          {error && (<div>Invalid Credentials</div>)}
         </div>
       </div>
     </form>

@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { storage } from "../lib/appwrite";
 import { ID } from "appwrite";
@@ -10,6 +9,7 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [user, setUser] = useState(null);
+  const [fileData,setFileData] = useState(null);
   const [fileView,setFileView] = useState(null);
   const posts = useDBContext();
 
@@ -33,21 +33,26 @@ const CreatePost = () => {
       ID.unique(),
       document.getElementById("uploader").files[0]
     );
-    console.log(response);
+    setFileData(response);
     if(response){
       const result = storage.getFileView(process.env.NEXT_PUBLIC_BUCKET_ID, response.$id);
       setFileView(result);
-      console.log(result);
     }
   };
 
+  const uploadToDB = async (e) => {
+    e.preventDefault();
+    const obj = {UserID:user.$id,PostTitle:title,PostContent:content,ImageID:fileData.$id}
+    await posts.add(obj);
+  }
+
   if (user) {
     return (
-      <form className="flex flex-col mt-12 px-32 pb-20 space-y-5">
-        <div className="flex gap-x-4 self-center">
+      <form className="flex flex-col m-12 px-32 max-md:px-10 pb-20 space-y-5">
+        <div className="flex flex-col gap-y-4 self-center">
           <div className="w-[500px] h-[400px] bg-slate-400/30 flex justify-center items-center">
             {fileView ? (
-              <Image src={fileView.href} alt="uploaded-file" width={500} height={400} />
+              <img src={fileView.href} alt="uploaded-file" />
             ) : (
               <p>Image</p>
             )}
@@ -67,6 +72,8 @@ const CreatePost = () => {
           cols="30"
           rows="2"
           placeholder="Title"
+          value={title}
+          onChange={(e)=>setTitle(e.target.value)}
         ></textarea>
         <textarea
           className="input"
@@ -75,8 +82,10 @@ const CreatePost = () => {
           cols="30"
           rows="10"
           placeholder="Content"
+          value={content}
+          onChange={(e)=>setContent(e.target.value)}
         ></textarea>
-        <button className="btn self-end">Create</button>
+        <button className="btn self-end" onClick={uploadToDB}>Create</button>
       </form>
     );
   }

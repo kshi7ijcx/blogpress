@@ -14,8 +14,8 @@ export const DatabaseContextProvider = ({ children }) => {
 
   async function add(post) {
     const response = await databases.createDocument(
-      POSTS_DATABASE_ID,
-      POSTS_COLLECTION_ID,
+      process.env.NEXT_PUBLIC_DATABASE_ID,
+      process.env.NEXT_PUBLIC_COLLECTION_ID,
       ID.unique(),
       post
     );
