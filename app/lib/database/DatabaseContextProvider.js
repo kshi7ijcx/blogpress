@@ -30,8 +30,8 @@ export const DatabaseContextProvider = ({ children }) => {
 
   async function init() {
     const response = await databases.listDocuments(
-      POSTS_DATABASE_ID,
-      POSTS_COLLECTION_ID,
+      process.env.NEXT_PUBLIC_DATABASE_ID,
+      process.env.NEXT_PUBLIC_COLLECTION_ID,
       [Query.orderDesc("$createdAt"), Query.limit(10)]
     );
     setAllPosts(response.documents);
