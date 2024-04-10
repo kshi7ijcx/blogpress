@@ -3,6 +3,7 @@ import { FaBrain } from "react-icons/fa";
 import LogoutButton from "./LogoutButton";
 
 const Navbar = () => {
+
   return (
     <nav className="w-full px-10 pt-4 sm:textsm">
       <div className="bg-[#3E3232] flex justify-between items-center px-10 py-3 max-sm:px-4 rounded-full shadow-xl">

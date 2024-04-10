@@ -9,9 +9,11 @@ const text =
   "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
 
 const Home = () => {
-  const posts = useDBContext();
+  const postss = useDBContext();
   const router = useRouter();
+  const [posts,setPosts] = useState([]);
   const [user, setUser] = useState(null);
+  const [error,setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -31,27 +33,28 @@ const Home = () => {
       try {
         setError(false);
         setLoading(true);
-        await posts.init();
+        const allPosts = await postss.init();
+        setPosts(allPosts);
+        console.log(allPosts);
         setLoading(false);
       } catch (e) {
         setLoading(false);
         setError(true);
       }
     }
+    getPosts();
   }, []);
 
   if (user) {
     return (
       <main className="w-full px-20">
-        {/* {posts.map((post)=>{
-          <BlogPost title=/>
-        })} */}
-        <div className="flex-col max-w-5xl mx-auto">
+        {posts.map((post)=>(<BlogPost key={post.$id} title={post.PostTitle} content={post.PostContent} image={post.ImageID}/>))}
+        {/* <div className="flex-col max-w-5xl mx-auto">
           <BlogPost title="Saving nature" content={text} />
           <BlogPost title="Saving nature" content={text} />
           <BlogPost title="Saving nature" content={text} />
           <BlogPost title="Saving nature" content={text} />
-        </div>
+        </div> */}
       </main>
     );
   }

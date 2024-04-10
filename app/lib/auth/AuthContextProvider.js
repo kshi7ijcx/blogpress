@@ -11,6 +11,8 @@ export const AuthContextProvider = ({ children }) => {
   async function login(email, password) {
     await account.createEmailSession(email, password);
     const loggedIn = await account.get();
+    console.log(loggedIn);
+    setUser(loggedIn);
     localStorage.setItem("user", JSON.stringify(loggedIn));
   }
 

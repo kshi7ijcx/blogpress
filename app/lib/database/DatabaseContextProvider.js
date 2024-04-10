@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState,useEffect } from "react";
+import { createContext } from "react";
 import { databases } from "../appwrite";
 import { ID, Query } from "appwrite";
 
@@ -10,7 +10,6 @@ export const POSTS_COLLECTION_ID = process.env.NEXT_PUBLIC_COLLECTION_ID;
 export const DBContext = createContext();
 
 export const DatabaseContextProvider = ({ children }) => {
-  const [allPosts, setAllPosts] = useState([]);
 
   async function add(post) {
     const response = await databases.createDocument(
@@ -19,12 +18,12 @@ export const DatabaseContextProvider = ({ children }) => {
       ID.unique(),
       post
     );
-    setAllPosts((allPosts) => [response.$id, ...allPosts].slice(0, 10));
+    // setAllPosts((allPosts) => [response.$id, ...allPosts].slice(0, 10));
   }
 
   async function remove(id) {
     await databases.deleteDocument(POSTS_DATABASE_ID, POSTS_COLLECTION_ID, id);
-    setAllPosts((allPosts) => allPosts.filter((post) => post.$id !== id));
+    // setAllPosts((allPosts) => allPosts.filter((post) => post.$id !== id));
     await init();
   }
 
@@ -34,8 +33,8 @@ export const DatabaseContextProvider = ({ children }) => {
       process.env.NEXT_PUBLIC_COLLECTION_ID,
       [Query.orderDesc("$createdAt"), Query.limit(10)]
     );
-    setAllPosts(response.documents);
+    return response.documents
   }
 
-  return <DBContext.Provider value={{ current: allPosts, add, remove, init}}>{children}</DBContext.Provider>;
+  return <DBContext.Provider value={{ add, remove, init}}>{children}</DBContext.Provider>;
 };
