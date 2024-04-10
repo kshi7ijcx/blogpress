@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import BlogPost from "./components/BlogPost";
 import useDBContext from "./lib/hooks/useDBContext";
 import { useRouter } from "next/navigation";
-import { FaAlignJustify } from "react-icons/fa";
 const text =
   "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
 
@@ -47,8 +46,8 @@ const Home = () => {
 
   if (user) {
     return (
-      <main className="w-full px-20">
-        {posts.map((post)=>(<BlogPost key={post.$id} title={post.PostTitle} content={post.PostContent} image={post.ImageID}/>))}
+      <main className="w-full px-20 max-md:px-10">
+        {posts.map((post)=>(<BlogPost key={post.$id} title={post.PostTitle} content={post.PostContent} imageID={post.ImageID}/>))}
         {/* <div className="flex-col max-w-5xl mx-auto">
           <BlogPost title="Saving nature" content={text} />
           <BlogPost title="Saving nature" content={text} />
