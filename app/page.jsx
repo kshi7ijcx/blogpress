@@ -10,9 +10,9 @@ const text =
 const Home = () => {
   const postss = useDBContext();
   const router = useRouter();
-  const [posts,setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
-  const [error,setError] = useState(false);
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -47,13 +47,15 @@ const Home = () => {
   if (user) {
     return (
       <main className="w-full px-20 max-md:px-10">
-        {posts.map((post)=>(<BlogPost key={post.$id} title={post.PostTitle} content={post.PostContent} imageID={post.ImageID}/>))}
-        {/* <div className="flex-col max-w-5xl mx-auto">
-          <BlogPost title="Saving nature" content={text} />
-          <BlogPost title="Saving nature" content={text} />
-          <BlogPost title="Saving nature" content={text} />
-          <BlogPost title="Saving nature" content={text} />
-        </div> */}
+        {posts.map((post) => (
+          <BlogPost
+            key={post.$id}
+            id={post.$id}
+            title={post.PostTitle}
+            content={post.PostContent}
+            imageID={post.ImageID}
+          />
+        ))}
       </main>
     );
   }

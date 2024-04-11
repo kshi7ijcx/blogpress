@@ -9,8 +9,8 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [user, setUser] = useState(null);
-  const [fileData,setFileData] = useState(null);
-  const [fileView,setFileView] = useState(null);
+  const [fileData, setFileData] = useState(null);
+  const [fileView, setFileView] = useState(null);
   const posts = useDBContext();
 
   const router = useRouter();
@@ -34,17 +34,26 @@ const CreatePost = () => {
       document.getElementById("uploader").files[0]
     );
     setFileData(response);
-    if(response){
-      const result = storage.getFileView(process.env.NEXT_PUBLIC_BUCKET_ID, response.$id);
+    if (response) {
+      const result = storage.getFileView(
+        process.env.NEXT_PUBLIC_BUCKET_ID,
+        response.$id
+      );
       setFileView(result);
     }
   };
 
   const uploadToDB = async (e) => {
     e.preventDefault();
-    const obj = {UserID:user.$id,PostTitle:title,PostContent:content,ImageID:fileData.$id}
+    const obj = {
+      UserID: user.$id,
+      PostTitle: title,
+      PostContent: content,
+      ImageID: fileData.$id,
+    };
     await posts.add(obj);
-  }
+    router.push("/");
+  };
 
   if (user) {
     return (
@@ -73,7 +82,7 @@ const CreatePost = () => {
           rows="2"
           placeholder="Title"
           value={title}
-          onChange={(e)=>setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         ></textarea>
         <textarea
           className="input"
@@ -83,9 +92,11 @@ const CreatePost = () => {
           rows="10"
           placeholder="Content"
           value={content}
-          onChange={(e)=>setContent(e.target.value)}
+          onChange={(e) => setContent(e.target.value)}
         ></textarea>
-        <button className="btn self-end" onClick={uploadToDB}>Create</button>
+        <button className="btn self-end" onClick={uploadToDB}>
+          Publish
+        </button>
       </form>
     );
   }
