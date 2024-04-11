@@ -46,7 +46,7 @@ const Home = () => {
 
   if (user) {
     return (
-      <main className="w-full px-20 max-md:px-10">
+      <main className="w-full px-20 max-md:px-10 mb-5">
         {posts.map((post) => (
           <BlogPost
             key={post.$id}

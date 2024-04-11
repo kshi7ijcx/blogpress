@@ -13,8 +13,8 @@ export const DatabaseContextProvider = ({ children }) => {
 
   async function add(post) {
     const response = await databases.createDocument(
-      process.env.NEXT_PUBLIC_DATABASE_ID,
-      process.env.NEXT_PUBLIC_COLLECTION_ID,
+      POSTS_DATABASE_ID,
+      POSTS_COLLECTION_ID,
       ID.unique(),
       post
     );
@@ -29,8 +29,8 @@ export const DatabaseContextProvider = ({ children }) => {
 
   async function init() {
     const response = await databases.listDocuments(
-      process.env.NEXT_PUBLIC_DATABASE_ID,
-      process.env.NEXT_PUBLIC_COLLECTION_ID,
+      POSTS_DATABASE_ID,
+      POSTS_COLLECTION_ID,
       [Query.orderDesc("$createdAt"), Query.limit(10)]
     );
     return response.documents
