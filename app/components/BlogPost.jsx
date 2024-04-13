@@ -28,7 +28,7 @@ const BlogPost = (props) => {
         <span className="text-xs">Kshitij Chauhan&nbsp;</span>
         <span className="text-xs">24/02/2024</span>
         <p>{props.content.slice(0, 200) + "..."}</p>
-        <p onClick={() => router.push(`/post/${props.id}`)}>Read More</p>
+        <p onClick={() => router.push(`/post/${props.id}`)} className="pointer text-sm">Read More</p>
       </div>
     </div>
   );
