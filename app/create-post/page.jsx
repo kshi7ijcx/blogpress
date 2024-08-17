@@ -20,6 +20,7 @@ const CreatePost = () => {
       const val = JSON.parse(localStorage.getItem("user"));
       if (val) {
         setUser(val);
+        console.log(val)
       } else {
         router.push("/");
       }
@@ -50,6 +51,7 @@ const CreatePost = () => {
       PostTitle: title,
       PostContent: content,
       ImageID: fileData.$id,
+      author: user.name
     };
     await posts.add(obj);
     router.push("/");

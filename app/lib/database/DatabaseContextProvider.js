@@ -21,6 +21,13 @@ export const DatabaseContextProvider = ({ children }) => {
     // setAllPosts((allPosts) => [response.$id, ...allPosts].slice(0, 10));
   }
 
+  async function update(post){
+    const response = await databases.updateDocument(
+      POSTS_DATABASE_ID,
+      POSTS_COLLECTION_ID,
+    )
+  }
+
   async function remove(id) {
     await databases.deleteDocument(POSTS_DATABASE_ID, POSTS_COLLECTION_ID, id);
     // setAllPosts((allPosts) => allPosts.filter((post) => post.$id !== id));
