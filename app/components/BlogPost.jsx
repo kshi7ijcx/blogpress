@@ -13,7 +13,7 @@ const BlogPost = (props) => {
   
   useEffect(() => {
     async function getImgUrl(fileID) {
-      const result = await storage.getFileView(
+      const result = storage.getFileView(
         process.env.NEXT_PUBLIC_BUCKET_ID,
         props.imageID
       );

@@ -1,26 +1,26 @@
 "use client";
-import { useEffect, useState } from "react";
-import useAuthContext from "../lib/hooks/useAuthContext";
+import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { AuthContext } from "../lib/auth/AuthContextProvider";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error,setError] = useState(false);
-  const user = useAuthContext();
+  const [error, setError] = useState(false);
+  const { login } = useContext(AuthContext);
   const router = useRouter();
-  
+
   const loginUser = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try{
+    try {
       setError(false);
-      await user.login(email, password);
+      await login(email, password);
       router.push("/");
       setLoading(false);
-    }catch(e){
+    } catch (e) {
       setLoading(false);
       setError(true);
     }
@@ -58,7 +58,7 @@ const Login = () => {
               SignUp
             </Link>
           </p>
-          {error && (<div>Invalid Credentials</div>)}
+          {error && <div>Invalid Credentials</div>}
         </div>
       </div>
     </form>
