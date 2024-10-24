@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   async function login(email, password) {
     await account.createEmailSession(email, password);
@@ -25,14 +26,31 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   async function init() {
-    const loggedIn = await account.get();
-    setUser(loggedIn);
-    return loggedIn;
+    try {
+      const loggedIn = await account.get();
+      setUser(loggedIn);
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.error(e);
+    }
   }
+
+  useEffect(() => {
+    init();
+  }, []);
 
   return (
     <AuthContext.Provider
-      value={{ current: user, setUser, login, logout, register, init }}
+      value={{
+        current: user,
+        setUser,
+        userLoading: loading,
+        login,
+        logout,
+        register,
+        init,
+      }}
     >
       {children}
     </AuthContext.Provider>

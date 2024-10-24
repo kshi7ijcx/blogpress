@@ -12,6 +12,7 @@ const LogoutButton = () => {
     setLoading(true);
     await logout();
     router.push("/login");
+    setLoading(false);
   };
 
   return (
