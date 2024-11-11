@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { storage } from "../lib/appwrite";
+import { storage } from "../../lib/appwrite";
 import { ID } from "appwrite";
-import useDBContext from "../lib/hooks/useDBContext";
+import useDBContext from "../../lib/hooks/useDBContext";
 import { useRouter } from "next/navigation";
 
 const CreatePost = ({params}) => {
