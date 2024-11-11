@@ -26,12 +26,10 @@ const Home = () => {
     const fetchData = async () => {
       if (!userLoading && current) {
         try {
-          console.log(current);
           setError(false);
           setLoading(true);
           const allPosts = await postss.init();
           setPosts(allPosts);
-          console.log(allPosts);
           setLoading(false);
         } catch (e) {
           setLoading(false);

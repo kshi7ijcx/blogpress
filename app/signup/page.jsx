@@ -7,13 +7,21 @@ const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const user = useAuthContext();
   const router = useRouter();
 
   const registerUser = async (e) => {
     e.preventDefault();
-    await user.register(email, password, name);
-    router.push("/");
+    try {
+      setLoading(true);
+      await user.register(email, password, name);
+      router.push("/");
+    } catch (error) {
+      setError("Invalid Credentials");
+      setLoading(false);
+    }
   };
 
   return (
@@ -49,9 +57,10 @@ const Login = () => {
         />
         <div className="flex flex-col space-y-3 items-center">
           <button className="btn" onClick={registerUser}>
-            Submit
+            {loading ? "..." : "Submit"}
           </button>
         </div>
+        <p>{error}</p>
       </div>
     </form>
   );

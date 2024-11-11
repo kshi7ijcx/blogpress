@@ -18,7 +18,6 @@ const BlogPost = (props) => {
         props.imageID
       );
       setImgurl(result.href);
-      console.log(imgurl);
     }
     getImgUrl();
   }, []);
