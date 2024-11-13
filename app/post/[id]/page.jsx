@@ -1,21 +1,23 @@
 "use client";
 import { storage, databases } from "@/app/lib/appwrite";
 import useAuthContext from "@/app/lib/hooks/useAuthContext";
+import useDBContext from "@/app/lib/hooks/useDBContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const PostPage = ({ params }) => {
-  const {current,userLoading}=useAuthContext()
+  const { current, userLoading } = useAuthContext();
+  const {remove} = useDBContext()
   const [post, setPost] = useState(null);
   const [imgurl, setImgurl] = useState(null);
   const router = useRouter();
 
-  useEffect(()=>{
-    if(!userLoading && !current){
-      router.push('/login')
+  useEffect(() => {
+    if (!userLoading && !current) {
+      router.push("/login");
     }
-  },[userLoading,current,router])
+  }, [userLoading, current, router]);
 
   useEffect(() => {
     const fetchPostImgUrl = async () => {
@@ -34,11 +36,26 @@ const PostPage = ({ params }) => {
     fetchPostImgUrl();
   }, []);
 
+  const deletePost = (id) => {
+    remove(id);
+    router.push('/')
+  }
+
   return imgurl ? (
     <div className="px-20 mb-8 pt-6 w-full max-md:px-8">
       <div className="max-w-3xl mx-auto flex flex-col items-center gap-y-3 px-14 py-5 border border-neutral-600 rounded-2xl max-md:px-6">
         <header className="self-center relative">
-          {current?.$id===post.UserID && <button className="btn absolute -right-16 top-1 max-sm:text-sm" onClick={()=>router.push(`/edit/${post.$id}`)}>Edit</button>}
+          {current?.$id === post.UserID && (
+            <div className="flex gap-3 absolute -right-48 top-1 max-sm:text-sm">
+              <button
+                className="btn"
+                onClick={() => router.push(`/edit/${post.$id}`)}
+              >
+                Edit
+              </button>
+              <button className="btn" onClick={()=>deletePost(params.id)}>Delete</button>
+            </div>
+          )}
           <h1 className="text-3xl font-bold text-center max-md:text-lg">
             {post.PostTitle}
           </h1>

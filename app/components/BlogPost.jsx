@@ -15,7 +15,6 @@ const BlogPost = (props) => {
         process.env.NEXT_PUBLIC_BUCKET_ID,
         props.imageID
       );
-      console.log(result);
       setImgurl(result.href);
     }
     getImgUrl();

@@ -30,7 +30,6 @@ const CreatePost = ({ params }) => {
         process.env.NEXT_PUBLIC_COLLECTION_ID,
         params.id
       );
-      console.log(current);
       setTitle(response.PostTitle);
       setContent(response.PostContent);
       setFileData(response.ImageID);
@@ -69,7 +68,7 @@ const CreatePost = ({ params }) => {
       PostContent: content,
       ImageID: fileData,
     };
-    console.log(obj);
+    og(obj);
     await posts.update(obj, params.id);
     router.push("/");
   };
