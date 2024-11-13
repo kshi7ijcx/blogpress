@@ -1,6 +1,7 @@
 "use client";
 import { storage, databases } from "@/app/lib/appwrite";
 import useAuthContext from "@/app/lib/hooks/useAuthContext";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -37,7 +38,7 @@ const PostPage = ({ params }) => {
     <div className="px-20 mb-8 pt-6 w-full max-md:px-8">
       <div className="max-w-3xl mx-auto flex flex-col items-center gap-y-3 px-14 py-5 border border-neutral-600 rounded-2xl max-md:px-6">
         <header className="self-center relative">
-          {current?.$id===post.UserID && <button className="btn absolute -right-16 top-1 max-sm:text-sm">Edit</button>}
+          {current?.$id===post.UserID && <button className="btn absolute -right-16 top-1 max-sm:text-sm" onClick={()=>router.push(`/edit/${post.$id}`)}>Edit</button>}
           <h1 className="text-3xl font-bold text-center max-md:text-lg">
             {post.PostTitle}
           </h1>
@@ -45,11 +46,12 @@ const PostPage = ({ params }) => {
             Kshitij Chauhan 12/03/2024
           </p>
         </header>
-        <img
+        <Image
           src={imgurl}
-          alt="cool pic"
-          width={650}
-          height={650}
+          alt="post image"
+          width={500}
+          height={300}
+          loading="lazy"
           className="rounded-2xl object-contain"
         />
         <main>

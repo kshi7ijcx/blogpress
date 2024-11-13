@@ -5,6 +5,7 @@ import { ID } from "appwrite";
 import useDBContext from "../lib/hooks/useDBContext";
 import { useRouter } from "next/navigation";
 import useAuthContext from "../lib/hooks/useAuthContext";
+import Image from "next/image";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -56,7 +57,12 @@ const CreatePost = () => {
       <div className="flex flex-col gap-y-4 self-center">
         <div className="w-[500px] h-[400px] bg-slate-400/30 flex justify-center items-center">
           {fileView ? (
-            <img src={fileView.href} alt="uploaded-file" />
+            <Image
+              width={500}
+              height={300}
+              src={fileView.href}
+              alt="uploaded-file"
+            />
           ) : (
             <p>Image</p>
           )}

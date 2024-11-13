@@ -10,7 +10,6 @@ export const POSTS_COLLECTION_ID = process.env.NEXT_PUBLIC_COLLECTION_ID;
 export const DBContext = createContext();
 
 export const DatabaseContextProvider = ({ children }) => {
-
   async function add(post) {
     const response = await databases.createDocument(
       POSTS_DATABASE_ID,
@@ -21,11 +20,13 @@ export const DatabaseContextProvider = ({ children }) => {
     // setAllPosts((allPosts) => [response.$id, ...allPosts].slice(0, 10));
   }
 
-  async function update(post){
+  async function update(post, documentID) {
     const response = await databases.updateDocument(
       POSTS_DATABASE_ID,
       POSTS_COLLECTION_ID,
-    )
+      documentID,
+      post
+    );
   }
 
   async function remove(id) {
@@ -40,8 +41,12 @@ export const DatabaseContextProvider = ({ children }) => {
       POSTS_COLLECTION_ID,
       [Query.orderDesc("$createdAt"), Query.limit(10)]
     );
-    return response.documents
+    return response.documents;
   }
 
-  return <DBContext.Provider value={{ add, remove, init}}>{children}</DBContext.Provider>;
+  return (
+    <DBContext.Provider value={{ add, remove, init, update }}>
+      {children}
+    </DBContext.Provider>
+  );
 };
