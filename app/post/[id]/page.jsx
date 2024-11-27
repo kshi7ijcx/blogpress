@@ -46,7 +46,7 @@ const PostPage = ({ params }) => {
       <div className="max-w-3xl mx-auto flex flex-col items-center gap-y-3 px-14 py-5 border border-neutral-600 rounded-2xl max-md:px-6">
         <header className="self-center relative">
           {current?.$id === post.UserID && (
-            <div className="flex gap-3 absolute -right-48 top-1 max-sm:text-sm">
+            <div className="flex gap-3 absolute -right-52 top-1 max-sm:text-sm">
               <button
                 className="btn"
                 onClick={() => router.push(`/edit/${post.$id}`)}
@@ -68,7 +68,6 @@ const PostPage = ({ params }) => {
           alt="post image"
           width={500}
           height={300}
-          loading="lazy"
           className="rounded-2xl object-contain"
         />
         <main>

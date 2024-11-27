@@ -51,11 +51,13 @@ const CreatePost = ({ params }) => {
       document.getElementById("uploader").files[0]
     );
     setFileData(response);
+    console.log(response)
     if (response) {
       const result = storage.getFileView(
         process.env.NEXT_PUBLIC_BUCKET_ID,
         response.$id
       );
+      console.log(result)
       setFileView(result);
     }
   };
@@ -66,9 +68,8 @@ const CreatePost = ({ params }) => {
       UserID: current.$id,
       PostTitle: title,
       PostContent: content,
-      ImageID: fileData,
+      ImageID: fileData.$id,
     };
-    og(obj);
     await posts.update(obj, params.id);
     router.push("/");
   };
@@ -81,7 +82,7 @@ const CreatePost = ({ params }) => {
             <Image
               width={500}
               height={300}
-              src={fileView}
+              src={fileView.href}
               alt="uploaded-file"
             />
           ) : (

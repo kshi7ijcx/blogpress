@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuthContext from "../lib/hooks/useAuthContext";
 import { useRouter } from "next/navigation";
+import { PlusCircle } from "lucide-react";
 
 const LogoutButton = () => {
   const { logout, current } = useAuthContext();
@@ -19,6 +20,7 @@ const LogoutButton = () => {
     <>
       {current && (
         <div className="flex items-center space-x-3 max-sm:space-x-1">
+          <button onClick={()=>router.push("/create-post")}><PlusCircle/></button>
           <p className="font-semibold text-lg max-sm:text-sm">{current.name}</p>
           <button className="btn max-sm:text-sm" onClick={logoutUser}>
             {loading ? "..." : "Logout"}

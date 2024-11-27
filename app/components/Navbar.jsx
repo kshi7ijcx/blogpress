@@ -1,8 +1,13 @@
+"use client"
 import Link from "next/link";
 import { FaBrain } from "react-icons/fa";
 import LogoutButton from "./LogoutButton";
+import { PlusCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+
+  const router = useRouter();
 
   return (
     <nav className="w-full px-10 pt-4 sm:textsm">
